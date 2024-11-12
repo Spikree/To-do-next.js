@@ -54,9 +54,9 @@ export const DELETE = async (request, {params}) => {
 
     try {
         await connectToDb();
-        const taskId = params.id;
+        const {id} = await params;
 
-        await Task.findByIdAndDelete(taskId)
+        await Task.findByIdAndDelete(id)
 
         return new Response("Task Deleted Sucessfully", {status: 200})
     } catch (error) {

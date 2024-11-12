@@ -4,6 +4,10 @@ import Task from "@/models/task";
 export const POST = async (req) => {
   const { userId, title, taskcontent } = await req.json();
 
+  if (!userId || !title || !taskcontent) {
+    return new Response("Missing required fields", { status: 400 });
+  }
+
   try {
     await connectToDb()
     const newTask = new Task({user: userId,title: title,taskcontent: taskcontent})

@@ -18,7 +18,7 @@ const Home = () => {
       const fetchTasks = async () => {
         try {
           const res = await axios.get(`/api/task/${session?.user.id}`);
-          setTasks(res.data);
+          setTasks(res.data || []);
           // console.log(tasks)
         } catch (error) {
           console.log(error);
@@ -40,21 +40,37 @@ const Home = () => {
     }
   };
 
+  const deleteTask = async (taskId) => {
+    try {
+      const response = await axios.delete(`/api/task/${taskId}`)
+      setStateUpdater(prev => !prev)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="w-full px-10 min-h-max">
-      {tasks?.map((task, idx) => {
-        return (
-          <Task
-            key={idx}
-            markChecked={markChecked}
-            taskId={task._id}
-            task={task.taskcontent}
-            taskTitle={task.title}
-            status={task.complete}
-            date={task.date}
-          />
-        );
-      })}
+      {Array.isArray(tasks) &&
+        tasks.length > 0 ? 
+        tasks?.map((task, idx) => {
+          return (
+            <Task
+              key={idx}
+              markChecked={markChecked}
+              deleteTask={deleteTask}
+              taskId={task._id}
+              task={task.taskcontent}
+              taskTitle={task.title}
+              status={task.complete}
+              date={task.date}
+            />
+          );
+        })
+        :
+
+        <p>No tasks available</p>
+      }
     </div>
   );
 };

@@ -1,7 +1,9 @@
-import axios from "axios";
 import { CiCircleCheck } from "react-icons/ci";
 import { RxCrossCircled } from "react-icons/rx";
-const Task = ({ taskTitle, task, date, status, taskId, markChecked }) => {
+import { MdDelete } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
+
+const Task = ({ taskTitle, task, date, status, taskId, markChecked,deleteTask }) => {
   return (
     <div className="max-w-80 border-accent border-2 p-4 rounded-md">
       <h1 className="text-2xl font-bold">{taskTitle}</h1>
@@ -22,6 +24,9 @@ const Task = ({ taskTitle, task, date, status, taskId, markChecked }) => {
           className="text-4xl"
         />
       )}
+
+      <button><MdDelete onClick={() => {deleteTask(taskId)}} className="text-4xl" /></button>
+      <button><MdModeEdit className="text-4xl" /></button>
     </div>
   );
 };
