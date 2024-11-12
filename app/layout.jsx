@@ -1,3 +1,4 @@
+import Provider from "@/components/Provider";
 import "./globals.css";
 
 export const metadata = {
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-to-r from-primary to-secondary min-h-screen">{children}</body>
+      <body className="bg-gradient-to-r from-primary to-secondary min-h-screen">
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }
