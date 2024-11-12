@@ -18,7 +18,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="w-full py-8 flex justify-between">
+    <div className="w-full p-11 flex justify-between">
       <h1 className="text-2xl font-bold">ToDoNext</h1>
       {session ? (
         <div className="flex gap-5 text-lg font-semibold">
@@ -34,18 +34,19 @@ const Navbar = () => {
           >
             Complete
           </Link>
-          <button
+          <Link
+            href="#"
             onClick={() => signOut()}
-            className="px-4 py-2 hover:rounded-3xl transition-all duration-200 ease-in-out border-slate-950 font-semibold text-white bg-black rounded"
+            className="hover:border-b-4 ease-in-out transition-all text-gray-500"
           >
-            Sign Out
-          </button>
+            sign out
+          </Link>
         </div>
       ) : (
         providers && (
           <button
             onClick={() => signIn(providers.google.id)}
-            className="px-4 py-2 hover:rounded-3xl transition-all duration-200 ease-in-out border-slate-950 font-semibold text-white bg-black rounded"
+            className="px-4 py-2 hover:rounded-3xl transition-all duration-200 ease-in-out border-slate-950 text-black font-bold bg-white rounded"
           >
             Sign In
           </button>
