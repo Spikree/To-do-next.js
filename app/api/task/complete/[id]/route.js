@@ -1,28 +1,19 @@
 import Task from "@/models/task";
 import { connectToDb } from "@/utils/database";
-import { getSession } from "next-auth/react";
 
 export const PATCH = async (request, {params}) => {
-    const taskId = params.id;
-
-    const session = await getSession({ request });
-
-    if (!session) {
-      return new Response("You must be logged in to view tasks.", {
-        status: 401,
-      });
-    }
+    const {id} = await params;
 
     try {
         await connectToDb()
 
-        const task = await Task.findById(taskId)
+        const task = await Task.findById(id)
 
         if(!task) {
             return new Response("No task found", {status:404})
         }
 
-        task.complete = true;
+        task.complete = !task.complete;
 
         await task.save()
         return new Response(JSON.stringify(task),{status:200})
