@@ -10,6 +10,9 @@ const Home = () => {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
+    if(!session) {
+      return
+    }
     try {
       const fetchTasks = async () => {
         try {
@@ -20,16 +23,15 @@ const Home = () => {
         }
       }
       fetchTasks()
-      console.log(tasks)
     } catch (error) {
       console.log(error)
     }
-  })
+  },[session])
 
   return (
     <div className="w-full px-10 min-h-max">
       {
-        tasks.map((task,idx) => {
+        tasks?.map((task,idx) => {
           return <Task key={idx} task={task.taskcontent} taskTitle={task.title} status={task.complete} date={task.date} />
         })
       }

@@ -1,30 +1,21 @@
 import { connectToDb } from "@/utils/database";
 import Task from "@/models/task";
-import { getSession } from "next-auth/react";
 
 // GET ALL TASKS
 export const GET = async (request, { params }) => {
 
-  const session = await getSession({ request });
-
-  // if (!session) {
-  //   return new Response("You must be logged in to view tasks.", {
-  //     status: 401,
-  //   });
-  // }
-
   try {
     await connectToDb();
 
-    const {id} = params;
+    const {id} = await params;
+    
+    const tasks = await Task.find({ user: id });
 
-    const tasks = await Task.find({ user: userId });
-
-    if (!tasks) {
+    if (tasks.length === 0) {
       return new Response("Tasks from this user not found");
     }
 
-    return new Response(JSON.stringify(tasks), { status: 201 });
+    return new Response(JSON.stringify(tasks), { status: 200 });
   } catch (error) {
     return new Response("Failed to fetch all tasks, internal server error", {
       status: 500,
@@ -35,14 +26,6 @@ export const GET = async (request, { params }) => {
 // EDIT TASK
 export const PATCH = async (request, {params}) => {
     const {title, taskcontent } = await request.json();
-
-    const session = await getSession({ request });
-
-    if (!session) {
-      return new Response("You must be logged in to view tasks.", {
-        status: 401,
-      });
-    }
 
     const taskId = params.id
 
@@ -68,14 +51,6 @@ export const PATCH = async (request, {params}) => {
 
 // DELETE TASK
 export const DELETE = async (request, {params}) => {
-
-  const session = await getSession({ request });
-
-  if (!session) {
-    return new Response("You must be logged in to view tasks.", {
-      status: 401,
-    });
-  }
 
     try {
         await connectToDb();
