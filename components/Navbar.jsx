@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -22,7 +23,7 @@ const Navbar = () => {
       <h1 className="text-2xl font-bold">ToDoNext</h1>
       {session ? (
         <div className="flex gap-5 text-lg font-semibold">
-          <Link
+          {/* <Link
             className="hover:border-b-4 ease-in-out transition-all"
             href="/incomplete"
           >
@@ -33,7 +34,9 @@ const Navbar = () => {
             href="/complete"
           >
             Complete
-          </Link>
+          </Link> */}
+
+          {/* <button className="hover:border-b-4 ease-in-out transition-all text-white">Add Task</button> */}
           <Link
             href="#"
             onClick={() => signOut()}
@@ -41,6 +44,16 @@ const Navbar = () => {
           >
             sign out
           </Link>
+          <div className="border-4 rounded-full border-gray-600 hover:border-white">
+          <Image
+                src={session?.user.image}
+                width={30}
+                height={30}
+                className="rounded-full"
+                alt="profile"
+              />
+          </div>
+          
         </div>
       ) : (
         providers && (

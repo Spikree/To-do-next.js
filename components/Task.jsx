@@ -5,7 +5,7 @@ import { MdModeEdit } from "react-icons/md";
 
 const Task = ({ taskTitle, task, date, status, taskId, markChecked,deleteTask,showEditOption,fetchTask}) => {
   return (
-    <div className="max-w-80 border-accent border-2 p-4 rounded-md">
+    <div className="max-w-80 w-full border-accent border-2 p-4 rounded-md">
       <h1 className="text-2xl font-bold">{taskTitle}</h1>
       <p>{task}</p>
       <p>{date}</p>
