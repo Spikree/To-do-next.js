@@ -4,12 +4,17 @@ import Task from "@/components/Task";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import EditTask from "@/components/EditTask";
 
 const Home = () => {
   const { data: session } = useSession();
   const [tasks, setTasks] = useState([]);
   const [stateUpdater,setStateUpdater] = useState(false)
-
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editTaskId,setEditTaskId] = useState(null)
+  const [taskTitle, setTaskTitle] = useState("")
+  const [taskContent, setTaskContent] = useState("")
+ 
   useEffect(() => {
     if (!session) {
       return;
@@ -49,6 +54,41 @@ const Home = () => {
     }
   }
 
+  const showEditOption = (taskId) => {
+    setEditTaskId(taskId)
+    setShowEditModal(prev => !prev);
+    console.log(taskId)
+  }
+
+  const fetchTask = async (editTaskId) => {
+    try {
+      const response = await axios.get(`/api/task/fetch/${editTaskId}`)
+      setTaskTitle(response.data.title)
+      setTaskContent(response.data.taskcontent)
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
+
+  const cancleEdit = () => {
+    setShowEditModal(prev => !prev);
+  }
+
+  const editTask = async (editTaskId) => {
+    try {
+      const response = await axios.patch(`/api/task/${editTaskId}`,{
+        title: taskTitle,
+        taskcontent: taskContent,
+      })
+      console.log(response)
+      setShowEditModal(prev => !prev)
+      setStateUpdater(prev => !prev)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="w-full px-10 min-h-max">
       {Array.isArray(tasks) &&
@@ -64,12 +104,17 @@ const Home = () => {
               taskTitle={task.title}
               status={task.complete}
               date={task.date}
+              showEditOption={showEditOption}
+              setEditTaskId={setEditTaskId}
+              fetchTask={fetchTask}
             />
           );
         })
         :
 
         <p>No tasks available</p>
+      }{
+        showEditModal ? <EditTask setTaskContent={setTaskContent} setTaskTitle={setTaskTitle} taskTitle={taskTitle} taskContent={taskContent} editTaskId={editTaskId} editTask={editTask} cancleEdit={cancleEdit}/> : ""
       }
     </div>
   );

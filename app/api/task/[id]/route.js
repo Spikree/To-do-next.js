@@ -27,11 +27,11 @@ export const GET = async (request, { params }) => {
 export const PATCH = async (request, {params}) => {
     const {title, taskcontent } = await request.json();
 
-    const taskId = params.id
+    const {id} = await params
 
     try {
         await connectToDb()
-        const task = await Task.findById(taskId)
+        const task = await Task.findById(id)
 
         if(!task) {
             return new Response("No task found", {status:400})
