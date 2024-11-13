@@ -13,7 +13,8 @@ const Task = ({
   deleteTask,
   showEditOption,
   fetchTask,
-  setShowConfirmDeleteModal
+  setShowConfirmDeleteModal,
+  setDeleteTaskId
 }) => {
   const formatDate = (isoString) => {
     const date = new Date(isoString);
@@ -33,7 +34,8 @@ const Task = ({
           <button>
             <MdDelete
               onClick={() => {
-                deleteTask(taskId);
+                setShowConfirmDeleteModal(prev => !prev);
+                setDeleteTaskId(taskId)
               }}
               className="text-4xl"
             />

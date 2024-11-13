@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import EditTask from "@/components/EditTask";
 import AddTask from "@/components/AddTask";
+import ConfirmDelete from "@/components/ConfirmDelete";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -13,6 +14,7 @@ const Home = () => {
   const [stateUpdater, setStateUpdater] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editTaskId, setEditTaskId] = useState(null);
+  const [deleteTaskId, setDeleteTaskId] = useState(null)
   const [taskTitle, setTaskTitle] = useState("");
   const [taskContent, setTaskContent] = useState("");
   const [showAddTask, setShowAddTask] = useState(false);
@@ -54,6 +56,7 @@ const Home = () => {
     try {
       const response = await axios.delete(`/api/task/${taskId}`);
       setStateUpdater((prev) => !prev);
+      setShowConfirmDeleteModal(prev => !prev)
     } catch (error) {
       console.log(error);
     }
@@ -130,11 +133,12 @@ const Home = () => {
                 setEditTaskId={setEditTaskId}
                 fetchTask={fetchTask}
                 setShowConfirmDeleteModal={setShowConfirmDeleteModal}
+                setDeleteTaskId={setDeleteTaskId}
               />
             );
           })
         ) : (
-          <p>No tasks available</p>
+          <p className="text-lg text-center">No tasks available</p>
         )}
       </div> : <div className="flex flex-col align-middle justify-center items-center min-h-80 px-10">
           <h1 className="text-4xl sm:text-6xl bold p-8">lOGIN TO START USING TODONEXT.JS</h1>
@@ -175,6 +179,8 @@ const Home = () => {
       >
         Add Task
       </button> : ""}
+
+      {showConfirmDeleteModal && <ConfirmDelete setShowConfirmDeleteModal={setShowConfirmDeleteModal} deleteTaskId={deleteTaskId} deleteTask={deleteTask} />}
     </div>
   );
 };
