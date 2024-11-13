@@ -19,7 +19,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="w-full p-11 flex justify-between">
+    <div className="w-full p-11 flex items-center justify-between">
       <h1 className="text-2xl font-bold">ToDoNext</h1>
       {session ? (
         <div className="flex gap-5 text-lg font-semibold">
@@ -40,11 +40,11 @@ const Navbar = () => {
           <Link
             href="#"
             onClick={() => signOut()}
-            className="hover:border-b-4 ease-in-out transition-all text-gray-500"
+            className="hover:border-b-8 items-center border-b-4 ease-in-out transition-all text-gray-500"
           >
             sign out
           </Link>
-          <div className="border-4 rounded-full border-gray-600 hover:border-white">
+          <div className="border-4 cursor-pointer rounded-full border-gray-600 hover:border-white">
           <Image
                 src={session?.user.image}
                 width={30}
@@ -59,7 +59,7 @@ const Navbar = () => {
         providers && (
           <button
             onClick={() => signIn(providers.google.id)}
-            className="px-4 py-2 hover:rounded-3xl transition-all duration-200 ease-in-out border-slate-950 text-black font-bold bg-white rounded"
+            className="px-4 py-2 hover:rounded-3xl items-center transition-all duration-200 ease-in-out border-slate-950 text-black font-bold bg-white rounded"
           >
             Sign In
           </button>

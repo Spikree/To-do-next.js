@@ -18,6 +18,7 @@ const Home = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskContent, setNewTaskContent] = useState("");
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
 
   useEffect(() => {
     if (!session) {
@@ -128,6 +129,7 @@ const Home = () => {
                 showEditOption={showEditOption}
                 setEditTaskId={setEditTaskId}
                 fetchTask={fetchTask}
+                setShowConfirmDeleteModal={setShowConfirmDeleteModal}
               />
             );
           })
