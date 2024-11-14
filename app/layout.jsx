@@ -1,6 +1,7 @@
 import Provider from "@/components/Provider";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import { MyProvider } from "@/context/StoreContext";
 
 export const metadata = {
   title: "ToDoNext",
@@ -12,8 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="bg-black text-white min-h-screen">
         <Provider>
+          <MyProvider>
           <Navbar />
           {children}
+          </MyProvider>
         </Provider>
       </body>
     </html>

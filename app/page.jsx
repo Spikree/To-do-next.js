@@ -7,6 +7,7 @@ import axios from "axios";
 import EditTask from "@/components/EditTask";
 import AddTask from "@/components/AddTask";
 import ConfirmDelete from "@/components/ConfirmDelete";
+import { useMyContext } from "@/context/StoreContext";
 
 const Home = () => {
   const { data: session } = useSession();
@@ -21,6 +22,7 @@ const Home = () => {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskContent, setNewTaskContent] = useState("");
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const { state, setState } = useMyContext();
 
   useEffect(() => {
     if (!session) {
@@ -31,6 +33,7 @@ const Home = () => {
         try {
           const res = await axios.get(`/api/task/${session?.user.id}`);
           setTasks(res.data || []);
+          console.log(state)
           // console.log(tasks)
         } catch (error) {
           console.log(error);
