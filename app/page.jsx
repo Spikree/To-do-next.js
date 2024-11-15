@@ -224,6 +224,14 @@ const Home = () => {
         ""
       )}
 
+      {showConfirmDeleteModal && (
+        <ConfirmDelete
+          setShowConfirmDeleteModal={setShowConfirmDeleteModal}
+          deleteTaskId={deleteTaskId}
+          deleteTask={deleteTask}
+        />
+      )}
+
       {showAddTask ? (
         <AddTask
           addTask={addTask}
@@ -248,14 +256,6 @@ const Home = () => {
         </button>
       ) : (
         ""
-      )}
-
-      {showConfirmDeleteModal && (
-        <ConfirmDelete
-          setShowConfirmDeleteModal={setShowConfirmDeleteModal}
-          deleteTaskId={deleteTaskId}
-          deleteTask={deleteTask}
-        />
       )}
     </div>
   );
