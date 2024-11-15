@@ -5,10 +5,12 @@ import { createContext, useState, useContext } from 'react';
 const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
-  const [state, setState] = useState("some shared data");
+  const [incompleteTasks, setIncompleteTasks] = useState([]);
+  const [completeTasks, setCompleteTasks] = useState([]);
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
   
   return (
-    <MyContext.Provider value={{ state, setState }}>
+    <MyContext.Provider value={{ incompleteTasks, setIncompleteTasks,completeTasks,setCompleteTasks,showCompletedTasks,setShowCompletedTasks }}>
       {children}
     </MyContext.Provider>
   );
