@@ -10,6 +10,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const { setShowCompletedTasks, showCompletedTasks } = useMyContext();
+  
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -77,8 +78,8 @@ const Navbar = () => {
           )
         )}
       </div>
-      <hr className="sm:hidden" />
-      <div className="flex sm:hidden  justify-between">
+      {session && <hr className="sm:hidden" />}
+      { session && <div className="flex sm:hidden  justify-between">
         <Link
           className={
             showCompletedTasks
@@ -101,7 +102,7 @@ const Navbar = () => {
         >
           Complete
         </Link>
-      </div>
+      </div>}
     </div>
   );
 };

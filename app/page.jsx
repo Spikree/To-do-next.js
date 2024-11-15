@@ -83,7 +83,7 @@ const Home = () => {
   const showEditOption = (taskId) => {
     setEditTaskId(taskId);
     setShowEditModal((prev) => !prev);
-    console.log(taskId);
+    // console.log(taskId);
   };
 
   const fetchTask = async (editTaskId) => {
@@ -106,7 +106,7 @@ const Home = () => {
         title: taskTitle,
         taskcontent: taskContent,
       });
-      console.log(response);
+      // console.log(response);
       setShowEditModal((prev) => !prev);
       setStateUpdater((prev) => !prev);
     } catch (error) {
@@ -126,7 +126,7 @@ const Home = () => {
       setStateUpdater((prev) => !prev);
       setNewTaskTitle("");
       setNewTaskContent("");
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error);
     }
